@@ -12,4 +12,4 @@ class SearchResultPage(BasePage):
             srl_locator = SearchResultPageLocators.generate_locator_for_result(search_result_index)
             found_text_url = self.browser.find_element(*srl_locator).text
             assert found_text_url == text_url,\
-                f"Search result №{search_result_index + 1} is not contains '{text_url}', it contains '{found_text_url}'"
+                f"Search result №{search_result_index + 1} is not contains '{text_url}' link, it contains '{found_text_url}' link"

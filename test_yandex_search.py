@@ -11,7 +11,7 @@ from urls import YandexUrls
 class TestYandexTensorSearch:
 
     # Тестовый сценарий №1
-    @pytest.mark.xfail(reason="First five results can't contain only one site link.")
+    #@pytest.mark.xfail(reason="First five results can't contain only one site link.")
     def test_yandex_tensor_search(self, browser):
         # 1. Зайти на yandex.ru
         main_page = MainPage(browser, YandexUrls.YANDEX_MAIN_URL)
@@ -28,6 +28,7 @@ class TestYandexTensorSearch:
 
         # 5. При нажатии на Enter появляется таблица результатов поиска
         main_page.go_to_search_result_page()
+        time.sleep(2)
 
         search_result_page = SearchResultPage(browser, browser.current_url)
         search_result_page.should_be_search_result()
@@ -53,13 +54,13 @@ class TestYandexTensorSearch:
         images_page.should_be_popular_request_data_grid()
 
         # 5. Открыть 1 категорию, проверить, что открылась, в поиске верный текст
-        images_page.go_to_data_grid_item(0)
+        images_page.go_to_data_grid_item(item_index=0)
 
         search_image_page = SearchImagePage(browser, browser.current_url)
         search_image_page.should_be_search_text_equals(images_page.data_grid_item_text)
 
         # 6. Открыть 1 картинку, проверить, что открылась
-        search_image_page.go_to_image(0)
+        search_image_page.go_to_image(image_index=0)
         search_image_page.should_be_full_size_image()
         time.sleep(1)
 

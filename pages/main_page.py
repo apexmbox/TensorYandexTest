@@ -1,7 +1,7 @@
-import pytest
-import time
 from pages.base_page import BasePage
 from .locators import MainPageLocators
+from selenium.webdriver.common.action_chains import ActionChains as AC
+from selenium.webdriver.common.keys import Keys
 
 
 class MainPage(BasePage):
@@ -27,8 +27,8 @@ class MainPage(BasePage):
 
     def go_to_search_result_page(self):
         self.should_be_search_button()
-        search_button = self.browser.find_element(*MainPageLocators.SEARCH_BUTTON)
-        search_button.click()
+        hover = AC(self.browser).key_down(Keys.ENTER)
+        hover.perform()
 
     def go_to_search_images(self):
         self.should_be_images_button()
