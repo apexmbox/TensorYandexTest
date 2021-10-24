@@ -41,3 +41,6 @@ class TestYandexTensorSearch:
 
         search_image_page = SearchImagePage(browser, browser.current_url)
         search_image_page.should_be_search_text_equals(images_page.data_grid_item_text)
+
+        search_image_page.go_to_image(0)
+        search_image_page.should_be_full_size_image()

@@ -39,3 +39,12 @@ class ImagesPageLocators:
 
 class SearchImagePageLocators:
     SEARCH_FIELD_CLASS_TEXT_ATTRIBUTE = 'input__control'
+    FULL_SIZE_IMAGE = (By.CSS_SELECTOR, ".MMImageContainer .MMImage-Preview")
+
+    @staticmethod
+    def generate_locator_for_image(index):
+        return By.CSS_SELECTOR, f".serp-list .serp-item_pos_{index}"
+
+    @staticmethod
+    def generate_locator_for_image_link(index):
+        return By.CSS_SELECTOR, f".serp-list .serp-item_pos_{index} a"
