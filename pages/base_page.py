@@ -27,7 +27,7 @@ class BasePage:
         except NoSuchElementException:
             return False
 
-    def is_not_present(self, how, what, timeout=4):
+    def is_not_present(self, how, what, timeout=10):
         try:
             WebDriverWait(self.browser, timeout).until(
                 EC.presence_of_element_located((how, what))
@@ -37,7 +37,7 @@ class BasePage:
 
         return False
 
-    def is_appeared(self, how, what, timeout=4):
+    def is_appeared(self, how, what, timeout=10):
         try:
             WebDriverWait(self.browser, timeout).until(
                 EC.presence_of_element_located((how, what))
@@ -47,7 +47,7 @@ class BasePage:
 
         return True
 
-    def is_disappeared(self, how, what, timeout=4):
+    def is_disappeared(self, how, what, timeout=10):
         try:
             WebDriverWait(self.browser, timeout, 1, TimeoutException).until_not(
                 EC.presence_of_element_located((how, what))
@@ -66,24 +66,3 @@ class BasePage:
                 return True
         except NoSuchElementException:
             return True
-
-    def go_to_login_page(self):
-        login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
-        login_link.click()
-
-    def go_to_basket(self):
-        basket_button = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
-        basket_button.click()
-
-    def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented."
-
-    def should_be_basket_button(self):
-        assert self.is_element_present(*BasePageLocators.BASKET_BUTTON), "Basket button is not presented."
-
-    def should_be_authorized_user(self):
-        assert self.is_appeared(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"
-
-
-
-

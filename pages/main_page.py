@@ -1,6 +1,10 @@
 import pytest
+import time
 from pages.base_page import BasePage
 from .locators import MainPageLocators
+from .locators import ImagesPageLocators
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
@@ -17,11 +21,20 @@ class MainPage(BasePage):
     def should_be_search_button(self):
         assert self.is_present_and_visible(*MainPageLocators.SEARCH_BUTTON), "Search button at started page is not presented."
 
+    def should_be_images_button(self):
+        assert self.is_present_and_visible(*MainPageLocators.IMAGES_BUTTON), "Pictures button is not presented."
+
     def complete_search_field_with(self, text):
         search_field = self.browser.find_element(*MainPageLocators.SEARCH_FIELD)
         search_field.send_keys(text)
 
-    def go_to_search_results(self):
+    def go_to_search_result_page(self):
         self.should_be_search_button()
         search_button = self.browser.find_element(*MainPageLocators.SEARCH_BUTTON)
         search_button.click()
+
+    def go_to_search_images(self):
+        self.should_be_images_button()
+        images_item = self.browser.find_element(*MainPageLocators.IMAGES_BUTTON)
+        self.url = images_item.get_attribute('href')
+        self.open()
