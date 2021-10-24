@@ -17,14 +17,17 @@ class BasePage:
     def open(self):
         self.browser.get(self.url)
 
-    def is_element_present(self, how, what):
+    def is_present_and_visible(self, how, what):
         try:
-            self.browser.find_element(how, what)
+            element = self.browser.find_element(how, what)
+            if element.is_displayed():
+                return True
+            else:
+                return False
         except NoSuchElementException:
             return False
-        return True
 
-    def is_not_element_present(self, how, what, timeout=4):
+    def is_not_present(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(
                 EC.presence_of_element_located((how, what))
@@ -33,6 +36,16 @@ class BasePage:
             return True
 
         return False
+
+    def is_appeared(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(
+                EC.presence_of_element_located((how, what))
+            )
+        except TimeoutException:
+            return False
+
+        return True
 
     def is_disappeared(self, how, what, timeout=4):
         try:
@@ -44,15 +57,15 @@ class BasePage:
 
         return True
 
-    def is_appeared(self, how, what, timeout=4):
+    def is_not_visible(self, how, what):
         try:
-            WebDriverWait(self.browser, timeout).until(
-                EC.presence_of_element_located((how, what))
-            )
-        except TimeoutException:
-            return False
-
-        return True
+            element = self.browser.find_element(how, what)
+            if element.is_displayed():
+                return False
+            else:
+                return True
+        except NoSuchElementException:
+            return True
 
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)

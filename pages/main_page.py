@@ -1,12 +1,27 @@
 import pytest
 from pages.base_page import BasePage
-from .locators import BasePageLocators
+from .locators import MainPageLocators
 
 
 class MainPage(BasePage):
 
     def should_be_search_field(self):
-        assert self.is_element_present(*BasePageLocators.SEARCH_FIELD), "Search field is not presented"
+        assert self.is_present_and_visible(*MainPageLocators.SEARCH_FIELD), "Search field is not presented"
 
-    @pytest.mark.parametrize('search_text', )
-    def
+    def should_not_be_suggest_table(self):
+        assert self.is_not_visible(*MainPageLocators.SEARCH_SUGGEST_TABLE), "Search suggest table is presented, but shouldn't be."
+
+    def should_be_suggest_table(self):
+        assert self.is_appeared(*MainPageLocators.SEARCH_SUGGEST_TABLE), "Search suggest table is not presented."
+
+    def should_be_search_button(self):
+        assert self.is_present_and_visible(*MainPageLocators.SEARCH_BUTTON), "Search button at started page is not presented."
+
+    def complete_search_field_with(self, text):
+        search_field = self.browser.find_element(*MainPageLocators.SEARCH_FIELD)
+        search_field.send_keys(text)
+
+    def go_to_search_results(self):
+        self.should_be_search_button()
+        search_button = self.browser.find_element(*MainPageLocators.SEARCH_BUTTON)
+        search_button.click()
