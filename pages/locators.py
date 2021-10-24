@@ -1,10 +1,6 @@
 from selenium.webdriver.common.by import By
 
 
-class BasePageLocators:
-    pass
-
-
 class MainPageLocators:
     SEARCH_FIELD = (By.CSS_SELECTOR, ".input .input__box .input__control")
     SEARCH_SUGGEST_TABLE = (By.CSS_SELECTOR, ".mini-suggest__popup-content")
@@ -25,7 +21,6 @@ class ImagesPageLocators:
     DATA_GRID_FIRST_ITEM = (By.CSS_SELECTOR, ".PopularRequestList-Item_pos_0")
     DATA_GRID_FIRST_ITEM_SEARCH_TEXT = (By.CSS_SELECTOR, ".PopularRequestList-Item_pos_0 .PopularRequestList-SearchText")
 
-
     DATA_GRID_ITEM_TEXT_ATTRIBUTE = "data-grid-text"
 
     @staticmethod
@@ -40,6 +35,8 @@ class ImagesPageLocators:
 class SearchImagePageLocators:
     SEARCH_FIELD_CLASS_TEXT_ATTRIBUTE = 'input__control'
     FULL_SIZE_IMAGE = (By.CSS_SELECTOR, ".MMImageContainer .MMImage-Preview")
+    NEXT_IMAGE_BUTTON = (By.CSS_SELECTOR, ".CircleButton_type_next")
+    PREV_IMAGE_BUTTON = (By.CSS_SELECTOR, ".CircleButton_type_prev")
 
     @staticmethod
     def generate_locator_for_image(index):

@@ -2,9 +2,6 @@ import pytest
 import time
 from pages.base_page import BasePage
 from .locators import MainPageLocators
-from .locators import ImagesPageLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):

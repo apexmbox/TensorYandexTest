@@ -1,11 +1,8 @@
-import math
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from .locators import BasePageLocators
 
 
 class BasePage:
@@ -16,6 +13,12 @@ class BasePage:
 
     def open(self):
         self.browser.get(self.url)
+
+    def is_present(self, how, what):
+        try:
+            self.browser.find_element(how, what)
+        except NoSuchElementException:
+            return False
 
     def is_present_and_visible(self, how, what):
         try:
